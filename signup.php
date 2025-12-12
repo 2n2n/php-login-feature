@@ -10,11 +10,14 @@ if (!empty($_POST)) {
     $fullname = trim($_POST['fullname']);
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
+    $c_password = trim($_POST['c_password']);
 
     // Basic validation
     if ($fullname == "")  $errors[] = "Full name is required.";
     if ($username == "")  $errors[] = "Username is required.";
     if ($password == "")  $errors[] = "Password is required.";
+    if ($password == "")  $errors[] = "Confirm Password is required.";
+    if ($password != $c_password)  $errors[] = "Confirm Password does not match.";
 
     if (count($errors) == 0) {
 
@@ -58,6 +61,9 @@ if (!empty($_POST)) {
 
         <label>Password:</label><br>
         <input type="password" name="password"><br><br>
+
+        <label>Confirm Password:</label><br>
+        <input type="password" name="c_password"><br><br>
 
         <input type="submit" value="Sign Up">
     </form>
