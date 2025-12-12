@@ -24,7 +24,7 @@ $msg    = isset($_GET['msg']) ? urldecode($_GET['msg']) : "";
 <?php endif; ?>
 
 <br>
-<a href="signup.php">Back to Sign Up</a>
+<a href="login.php">Login</a>
 
 </body>
 </html>
