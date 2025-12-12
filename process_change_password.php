@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+require_once 'connect.php';
+
 session_start();
 
 /** Helper: consistent error response */
@@ -24,15 +26,7 @@ $oldPassword     = (string)$_POST['old_password'];
 $newPassword     = (string)$_POST['new_password'];
 $confirmPassword = (string)$_POST['confirm_password'];
 
-/** Optional: CSRF check if you embedded a token on the form page */
-// if (!isset($_POST['csrf_token'], $_SESSION['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-//     bad_request('Invalid request (CSRF).');
-// }
 
-/** Basic validation */
-//if (strlen($newPassword) < 8) {
-//    bad_request('New password must be at least 8 characters.');
-//}
 if ($newPassword !== $confirmPassword) {
     bad_request('New password and confirmation do not match.');
 }
@@ -40,19 +34,8 @@ if ($newPassword === $oldPassword) {
     bad_request('New password cannot be the same as the old password.');
 }
 
-// OPTIONAL: Strength policy (uncomment if needed)
-// if (!preg_match('/[A-Z]/', $newPassword) || !preg_match('/[a-z]/', $newPassword) || !preg_match('/\d/', $newPassword)) {
-//     bad_request('Password must include uppercase, lowercase, and a number.');
-// }
-
-/** --- Database config --- */
-$dbHost = "10.2.0.57";
-$dbUser = "git_training";
-$dbPass = "nVnr93?c";
-$dbName = "git_training";
-
 /** Connect to MySQL (MySQLi) */
-$mysqli = mysqli_connect($dbHost, $dbUser, $dbPass, $dbName);
+$mysqli = mysqli_connect($servername, $username, $password, $dbname);
 if (!$mysqli) {
     bad_request('Database connection error.', 500);
 }
