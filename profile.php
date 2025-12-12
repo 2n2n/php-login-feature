@@ -154,7 +154,7 @@ $stmt->close();
 <div class="profile-card">
 
     <h2>My Profile</h2>
-    <p class="welcome">Welcome, <?php echo htmlspecialchars($username); ?>!</p>
+    <p class="welcome">Bounty Day, <?php echo htmlspecialchars($name); ?>!</p>
 
     <?php if ($message): ?>
         <div class="message <?php echo strpos($message, 'successfully') !== false ? 'success' : 'error'; ?>">
