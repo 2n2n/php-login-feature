@@ -57,6 +57,6 @@ $stmt->close();
 </form>
 
 <p><a href="change_password.php">Change Password</a></p>
-<p><a href="logout.php">Logout</a></p>
+<p><a href="signup.php">Logout</a></p>
 </body>
 </html>
