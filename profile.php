@@ -173,8 +173,8 @@ $stmt->close();
     </form>
 
     <div class="links">
-        <a href="change_password.php">Change Password</a><br>
-        <a href="logout.php">Logout</a>
+        <p><a href="change_password.php">Change Password</a></p>
+        <p><a href="logout.php">Logout</a></p>
     </div>
 
 </div>
