@@ -22,6 +22,9 @@ if (!empty($_POST)) {
 
         $result = $conn->query($sql);
         if ($result && $result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            session_start();
+            $_SESSION["user_id"] = $row["id"];
             header("Location: profile.php?status=success");
             exit();
         } else {
