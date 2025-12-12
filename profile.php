@@ -40,6 +40,21 @@ $stmt->close();
 <html>
 <head>
     <title>My Profile</title>
+
+    <style>
+    body { font-family: Arial, sans-serif; background:#f4f4f4; padding:20px; }
+    .container { max-width:400px; margin:auto; background:#fff; padding:20px; border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.1); }
+    h2 { text-align:center; margin-bottom:20px; }
+    label { display:block; margin-top:10px; font-weight:bold; }
+    input[type="text"], input[type="password"] {
+      width:100%; padding:10px; margin-top:5px; border:1px solid #ccc; border-radius:4px;
+    }
+    button {
+      margin-top:15px; width:100%; padding:10px; background:#28a745; color:#fff; border:none; border-radius:4px; font-size:16px; cursor:pointer;
+    }
+    button:hover { background:#218838; }
+  </style>
+  
 </head>
 <body>
 <h2>My Profile</h2>
