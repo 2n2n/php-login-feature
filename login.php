@@ -20,13 +20,12 @@ if (!empty($_POST)) {
         // Insert into MySQL
         $sql = "select * from users where username = '$username' and password = '$password'";
 
-        if ($conn->query($sql) === TRUE) {
-            // header("Location: signup_result.php?status=success");
+        $result = $conn->query($sql);
+        if ($result && $result->num_rows > 0) {
             header("Location: profile.php?status=success");
             exit();
         } else {
-            // header("Location: signup_result.php?status=error&msg=" . urlencode($conn->error));
-            header("Location: login.php?status=error&msg=" . urlencode($conn->error));
+            header("Location: login.php?status=error&msg=invalid_credentials");
             exit();
         }
     }
