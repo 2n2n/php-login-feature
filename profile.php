@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_profile"])) {
     $name = trim($_POST["name"]);
     $id   = $_SESSION["user_id"];
 
-    $stmt = $conn->prepare("UPDATE users SET name = ? WHERE id = ?");
+    $stmt = $conn->prepare("UPDATE  users SET name = ? WHERE id = ?");
     $stmt->bind_param("si", $name, $id);
     if ($stmt->execute()) {
         $_SESSION["name"] = $name;
