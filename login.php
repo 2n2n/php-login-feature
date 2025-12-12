@@ -134,6 +134,11 @@ if (!empty($_POST)) {
 
         <input type="submit" value="Login">
 
+        <div style="text-align:center; margin-top:15px;">
+            <a href="signup.php" style="color:#3498db; text-decoration:none; font-size:14px;">
+                Create an Account
+            </a>
+        </div>
     </form>
 
 </div>
