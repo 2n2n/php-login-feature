@@ -7,26 +7,29 @@ $success = "";
 // Run only when form is submitted
 if (!empty($_POST)) {
 
+    $fullname = trim($_POST['fullname']);
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
-
+    $c_password = trim($_POST['c_password']);
 
     // Basic validation
+    if ($fullname == "")  $errors[] = "Full name is required.";
     if ($username == "")  $errors[] = "Username is required.";
     if ($password == "")  $errors[] = "Password is required.";
+    if ($password == "")  $errors[] = "Confirm Password is required.";
+    if ($password != $c_password)  $errors[] = "Confirm Password does not match.";
 
     if (count($errors) == 0) {
 
         // Insert into MySQL
-        $sql = "select * from users where username = '$username' and password = '$password'";
+        $sql = "INSERT INTO users (name, username, password)
+                VALUES ('$fullname', '$username', '$password')";
 
         if ($conn->query($sql) === TRUE) {
-            // header("Location: signup_result.php?status=success");
-            header("Location: profile.php?status=success");
+            header("Location: signup_result.php?status=success");
             exit();
         } else {
-            // header("Location: signup_result.php?status=error&msg=" . urlencode($conn->error));
-            header("Location: login.php?status=error&msg=" . urlencode($conn->error));
+            header("Location: signup_result.php?status=error&msg=" . urlencode($conn->error));
             exit();
         }
     }
@@ -36,11 +39,11 @@ if (!empty($_POST)) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Sign Up</title>
 </head>
 <body style="font-family: Arial; padding: 40px;">
 
-    <h2>Welcome</h2>
+    <h2>Create an Account</h2>
 
     <!-- Show errors above the form -->
     <?php if (count($errors) > 0): ?>
@@ -49,7 +52,9 @@ if (!empty($_POST)) {
         </div>
     <?php endif; ?>
 
-    <form method="post" action="login.php">
+    <form method="post" action="signup.php">
+        <label>Full Name:</label><br>
+        <input type="text" name="fullname"><br><br>
 
         <label>Username:</label><br>
         <input type="text" name="username"><br><br>
@@ -57,7 +62,10 @@ if (!empty($_POST)) {
         <label>Password:</label><br>
         <input type="password" name="password"><br><br>
 
-        <input type="submit" value="Login">
+        <label>Confirm Password:</label><br>
+        <input type="password" name="c_password"><br><br>
+
+        <input type="submit" value="Sign Up">
     </form>
 
 </body>
