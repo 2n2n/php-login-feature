@@ -29,15 +29,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update_profile"])) {
 
 // get latest user data
 $id = $_SESSION["user_id"];
-$stmt = $conn->prepare("SELECT username, name FROM users WHERE id = ?");
+$stmt = $conn->prepare("SELECT username, name, email, phone, address, bio FROM users WHERE id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
-$stmt->bind_result($username, $name);
+$stmt->bind_result($username, $name, $email, $phone, $address, $bio);
 $stmt->fetch();
 $stmt->close();
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>My Profile</title>
 
@@ -58,7 +59,7 @@ $stmt->close();
             width: 420px;
             padding: 30px;
             border-radius: 14px;
-            box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
             animation: fadeIn 0.4s ease;
         }
 
@@ -143,41 +144,51 @@ $stmt->close();
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 
 </head>
+
 <body>
 
-<div class="profile-card">
+    <div class="profile-card">
 
-    <h2>My Profile</h2>
-    <p class="welcome">Welcome, <?php echo htmlspecialchars($username); ?>!</p>
+        <h2>My Profile</h2>
+        <p class="welcome">Welcome, <?php echo htmlspecialchars($username); ?>!</p>
 
-    <?php if ($message): ?>
-        <div class="message <?php echo strpos($message, 'successfully') !== false ? 'success' : 'error'; ?>">
-            <?php echo $message; ?>
+        <?php if ($message): ?>
+            <div class="message <?php echo strpos($message, 'successfully') !== false ? 'success' : 'error'; ?>">
+                <?php echo $message; ?>
+            </div>
+        <?php endif; ?>
+
+        <form method="post" action="">
+            <label>Username (cannot change):</label>
+            <input type="text" value="<?php echo htmlspecialchars($username); ?>" disabled>
+
+            <label>Name:</label>
+            <input type="text" name="name" value="<?php echo htmlspecialchars($name); ?>" required>
+
+            <button type="submit" name="update_profile">Update Profile</button>
+        </form>
+
+        <div class="links">
+            <p><a href="edit_profile.php">Edit Profile</a></p>
+            <p><a href="change_password.php">Change Password</a></p>
+            <p><a href="logout.php">Logout</a></p>
         </div>
-    <?php endif; ?>
 
-    <form method="post" action="">
-        <label>Username (cannot change):</label>
-        <input type="text" value="<?php echo htmlspecialchars($username); ?>" disabled>
-
-        <label>Name:</label>
-        <input type="text" name="name" value="<?php echo htmlspecialchars($name); ?>" required>
-
-        <button type="submit" name="update_profile">Update Profile</button>
-    </form>
-
-    <div class="links">
-        <p><a href="change_password.php">Change Password</a></p>
-        <p><a href="logout.php">Logout</a></p>
     </div>
 
-</div>
-
 </body>
+
 </html>
